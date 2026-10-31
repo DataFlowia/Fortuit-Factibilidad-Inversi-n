@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Factibilidad Ropa Escolar - Fortuit Osorno</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html{scroll-padding-top:80px} body { font-family: 'Inter', sans-serif; overflow-x:hidden; background:#f8fafc; color-scheme:light }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50" style="padding-top:env(safe-area-inset-top,0px)">
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8"><div class="flex items-center justify-between min-h-[64px] gap-3 py-1.5">
+    <div class="flex items-center gap-3 min-w-0">
+      <img src="data:image/png;base64,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" alt="Dataflow IA" class="h-12 sm:h-14 w-auto flex-shrink-0">
+      <div class="min-w-0 border-l border-slate-200 pl-3">
+        <h1 class="font-bold text-sm sm:text-lg leading-tight text-slate-900 truncate">FORTUIT Chile · Osorno</h1>
+        <p class="text-[10px] sm:text-xs text-slate-500 leading-tight">Hoja de Ruta y Estudio de Factibilidad · Ropa Escolar</p>
+      </div>
+    </div>
+    <div class="hidden md:flex items-center space-x-3 text-xs bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200 flex-shrink-0">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="text-slate-600">Exclusivo Vestuario &amp; Uniformes Escolares</span>
+    </div>
+  </div></div>
+</header>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full flex flex-col md:flex-row gap-6">
+
+        <aside class="w-full md:w-64 flex-shrink-0"><nav class="bg-white rounded-xl shadow-sm border border-slate-200 p-2 md:p-3 flex md:block gap-1 md:space-y-1 overflow-x-auto md:overflow-visible md:sticky md:top-24 custom-scrollbar"><div class="hidden md:block text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 pt-2">Inicio</div><button onclick="switchTab('gantt')" id="tab-btn-gantt" class="nav-tab flex-shrink-0 md:w-full flex items-center gap-2 md:gap-3 px-3 py-2.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap transition-colors bg-blue-50 text-blue-700"><span class="w-5 text-center">🗺️</span><span>Hoja de Ruta / Gantt</span></button><div class="hidden md:block text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 pt-2">Factibilidad</div><button onclick="switchTab('resumen')" id="tab-btn-resumen" class="nav-tab flex-shrink-0 md:w-full flex items-center gap-2 md:gap-3 px-3 py-2.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap transition-colors text-slate-600 hover:bg-slate-100"><span class="w-5 text-center">📊</span><span>Resumen de Factibilidad</span></button><button onclick="switchTab('mercado')" id="tab-btn-mercado" class="nav-tab flex-shrink-0 md:w-full flex items-center gap-2 md:gap-3 px-3 py-2.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap transition-colors text-slate-600 hover:bg-slate-100"><span class="w-5 text-center">🏫</span><span>Mercado de Colegios</span></button><button onclick="switchTab('financiero')" id="tab-btn-financiero" class="nav-tab flex-shrink-0 md:w-full flex items-center gap-2 md:gap-3 px-3 py-2.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap transition-colors text-slate-600 hover:bg-slate-100"><span class="w-5 text-center">🧮</span><span>Simulador Financiero</span></button><button onclick="switchTab('analisis')" id="tab-btn-analisis" class="nav-tab flex-shrink-0 md:w-full flex items-center gap-2 md:gap-3 px-3 py-2.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap transition-colors text-slate-600 hover:bg-slate-100"><span class="w-5 text-center">🔎</span><span>Análisis y Riesgos</span></button><div class="hidden md:block text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 pt-2">Estrategia</div><button onclick="switchTab('marketing')" id="tab-btn-marketing" class="nav-tab flex-shrink-0 md:w-full flex items-center gap-2 md:gap-3 px-3 py-2.5 rounded-lg text-xs md:text-sm font-medium whitespace-nowrap transition-colors text-slate-600 hover:bg-slate-100"><span class="w-5 text-center">📣</span><span>Marketing 360° Escolar</span></button></nav></aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 min-w-0">
+
+            <!-- TAB 1: RESUMEN EJECUTIVO -->
+            <section id="tab-resumen" class="tab-content space-y-6 hidden">
+                <!-- Overview Header Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Matrícula Objetivo</p>
+                                <h3 class="text-2xl font-bold text-slate-800 mt-1">38.500</h3>
+                            </div>
+                            <div class="bg-blue-100 text-blue-600 p-2.5 rounded-lg">
+                                <span aria-hidden="true">🎓</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2"><span class="text-emerald-600 font-medium">~85 Colegios</span> Provincia Osorno</p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Inversión (CAPEX)</p>
+                                <h3 class="text-2xl font-bold text-slate-800 mt-1" id="kpi-capex">$54.500.000</h3>
+                            </div>
+                            <div class="bg-amber-100 text-amber-600 p-2.5 rounded-lg">
+                                <span aria-hidden="true">🏬</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Remodelación + Stock Inicial</p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">VAN Proyectado</p>
+                                <h3 class="text-2xl font-bold text-emerald-600 mt-1" id="kpi-van">$48.500.000</h3>
+                            </div>
+                            <div class="bg-emerald-100 text-emerald-600 p-2.5 rounded-lg">
+                                <span aria-hidden="true">📈</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Tasa descuento: <span class="font-medium">12% anual</span></p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">TIR Estimada</p>
+                                <h3 class="text-2xl font-bold text-indigo-600 mt-1" id="kpi-tir">31.2%</h3>
+                            </div>
+                            <div class="bg-indigo-100 text-indigo-600 p-2.5 rounded-lg">
+                                <span aria-hidden="true">％</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Retorno (Payback): <span class="font-medium" id="kpi-payback">2.2 años</span></p>
+                    </div>
+                </div>
+
+                <!-- Strategic Summary Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <span aria-hidden="true">🛡️</span> Propuesta de Valor Exclusiva: Vestuario Escolar
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                                <div class="bg-blue-600 text-white p-2 rounded-lg text-xs font-bold">1</div>
+                                <div>
+                                    <h4 class="font-semibold text-sm text-slate-800">Hilados & Tejeduría Anti-Pilling</h4>
+                                    <p class="text-xs text-slate-600 mt-0.5">Chalecos y sweaters diseñados para resistir los continuos lavados y el clima húmedo de Osorno sin perder forma ni soltar motas.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                                <div class="bg-blue-600 text-white p-2 rounded-lg text-xs font-bold">2</div>
+                                <div>
+                                    <h4 class="font-semibold text-sm text-slate-800">Stock Garantizado Todo el Año</h4>
+                                    <p class="text-xs text-slate-600 mt-0.5">Disponibilidad constante de tallas y prendas institucionales, erradicando el desabastecimiento característico del retail a partir de marzo.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100">
+                                <div class="bg-blue-600 text-white p-2 rounded-lg text-xs font-bold">3</div>
+                                <div>
+                                    <h4 class="font-semibold text-sm text-slate-800">Bordados Institucionales de Alta Definición</h4>
+                                    <p class="text-xs text-slate-600 mt-0.5">Insignias y escudos bordados de forma precisa respetando al 100% la identidad corporativa de cada colegio de la zona.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <span aria-hidden="true">📍</span> Ubicación Preferente
+                            </h2>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-rose-50 border border-rose-100 rounded-lg">
+                                    <span class="text-xs font-bold text-rose-700 uppercase">Zona Prioritaria A</span>
+                                    <h4 class="text-sm font-semibold text-slate-800">Eje Mackenna / Victoria</h4>
+                                    <p class="text-xs text-slate-600 mt-1">Facilidad de estacionamiento para padres y apoderados, excelente acceso vehicular y cercanía al sector escolar.</p>
+                                </div>
+                                <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                                    <span class="text-xs font-bold text-slate-600 uppercase">Zona Secundaria B</span>
+                                    <h4 class="text-sm font-semibold text-slate-800">Eleuterio Ramírez (Centro)</h4>
+                                    <p class="text-xs text-slate-600 mt-1">Alto flujo peatonal de compras directas pero menor disponibilidad de estacionamiento y arriendo más elevado.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="switchTab('financiero')" class="mt-4 w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-lg text-xs transition-colors text-center">
+                            Proyectar Flujo Financiero <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: MERCADO & COLEGIOS -->
+            <section id="tab-mercado" class="tab-content space-y-6 hidden">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800">Catastro de Colegios - Ropa Escolar Osorno</h2>
+                            <p class="text-xs text-slate-500">Estimación de matrícula y potencial anual en ropa escolar por establecimiento.</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <label for="filter-dependencia" class="text-xs font-medium text-slate-600">Dependencia:</label>
+                            <select id="filter-dependencia" onchange="renderColegiosTable()" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <option value="todos">Todos los colegios</option>
+                                <option value="Particular Pagado">Particular Pagado</option>
+                                <option value="Particular Subvencionada">Particular Subvencionada</option>
+                                <option value="SLEP / Municipal">SLEP / Municipal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-600 uppercase text-[11px] font-semibold tracking-wider">
+                                    <th class="p-3 rounded-l-lg">Establecimiento Escolar</th>
+                                    <th class="p-3">Dependencia</th>
+                                    <th class="p-3 text-right">Matrícula</th>
+                                    <th class="p-3 text-right">Gasto Prom./Alumno</th>
+                                    <th class="p-3 text-right">Mercado Anual Est.</th>
+                                    <th class="p-3 text-center rounded-r-lg">Prioridad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="colegios-tbody" class="text-xs divide-y divide-slate-100">
+                                <!-- Data rendered dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-800 mb-3">Distribución de Alumnos por Tipo de Colegio</h3>
+                        <div class="h-64">
+                            <canvas id="chart-dependencia"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-800 mb-3">Mezcla de Productos Escolares Mas Demandados</h3>
+                        <div class="space-y-3 text-xs">
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                                <div class="flex justify-between font-semibold mb-1">
+                                    <span>Tejeduría Escolar (Sweaters / Chalecos)</span>
+                                    <span class="text-blue-600">35% Ventas</span>
+                                </div>
+                                <p class="text-slate-500">Producto estrella por el clima frío del sur. Alta exigencia de hilado sin motas.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                                <div class="flex justify-between font-semibold mb-1">
+                                    <span>Buzos Deportivos & Pantalones</span>
+                                    <span class="text-emerald-600">30% Ventas</span>
+                                </div>
+                                <p class="text-slate-500">Conjuntos deportivos de alta resistencia al desgaste de uso diario.</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                                <div class="flex justify-between font-semibold mb-1">
+                                    <span>Poleras Piqué & Camisas Bordadas</span>
+                                    <span class="text-amber-600">25% Ventas</span>
+                                </div>
+                                <p class="text-slate-500">Vestuario superior institucional con insignias bordadas de alta definición.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: SIMULADOR FINANCIERO -->
+            <section id="tab-financiero" class="tab-content space-y-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Inputs Column -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-5">
+                        <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2">
+                            <span aria-hidden="true">🎚️</span> Parámetros de Ropa Escolar
+                        </h3>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">CAPEX Inicial (Inversión)</label>
+                            <input type="number" id="input-capex" value="54500000" step="1000000" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <span class="text-[10px] text-slate-400">Remodelación, stock inicial de ropa y capital trabajo.</span>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Ventas Proyectadas Año 1 (CLP)</label>
+                            <input type="number" id="input-ventas-y1" value="135000000" step="5000000" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Crecimiento Anual (%)</label>
+                            <input type="number" id="input-growth" value="11" min="0" max="50" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Margen Neto Operativo (%) · calibrado al documento</label>
+                            <input type="number" id="input-margin" value="17.4" step="0.1" min="10" max="60" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Tasa de Descuento WACC (%)</label>
+                            <input type="number" id="input-wacc" value="12" min="5" max="30" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Financial Results Column -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h3 class="text-base font-bold text-slate-800 mb-4">Proyección de Flujo de Caja (5 Años)</h3>
+                            <div class="h-64">
+                                <canvas id="chart-cashflow"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Table Projections -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                            <h3 class="text-sm font-bold text-slate-800 mb-3">Estado de Resultados Proyectado</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-xs text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-100 text-slate-600 uppercase text-[10px]">
+                                            <th class="p-2.5">Año</th>
+                                            <th class="p-2.5 text-right">Ventas Totales</th>
+                                            <th class="p-2.5 text-right">Costos Operativos</th>
+                                            <th class="p-2.5 text-right">Flujo Neto</th>
+                                            <th class="p-2.5 text-right">Flujo Acumulado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-projections" class="divide-y divide-slate-100">
+                                        <!-- Computed by JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+<section id="tab-analisis" class="tab-content space-y-6 hidden">
+  <div id="an-verdict" class="rounded-xl p-4 text-sm font-semibold border"></div>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><p class="text-[10px] font-semibold text-slate-500 uppercase">Ventas de equilibrio</p><h3 class="text-xl font-bold mt-1" id="an-be">-</h3><p class="text-[11px] text-slate-500 mt-1">Para cubrir el OPEX anual</p></div>
+    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><p class="text-[10px] font-semibold text-slate-500 uppercase">VAN (margen − OPEX)</p><h3 class="text-xl font-bold mt-1" id="an-van">-</h3><p class="text-[11px] text-slate-500 mt-1">Flujo antes de impuestos</p></div>
+    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><p class="text-[10px] font-semibold text-slate-500 uppercase">TIR (5 años)</p><h3 class="text-xl font-bold mt-1" id="an-tir">-</h3><p class="text-[11px] text-slate-500 mt-1">Incluye recupero final</p></div>
+    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><p class="text-[10px] font-semibold text-slate-500 uppercase">Cuota de mercado</p><h3 class="text-xl font-bold mt-1" id="an-share">-</h3><p class="text-[11px] text-slate-500 mt-1" id="an-mkt">Mercado estimado</p></div>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+      <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2">🎚️ Supuestos del análisis</h3>
+      <p class="text-[11px] text-slate-400">Usa CAPEX, ventas, crecimiento y WACC del Simulador.</p>
+      <div><label class="flex justify-between text-xs font-semibold text-slate-700">Margen bruto <span id="an-gm-v" class="text-blue-600"></span></label><input id="an-gm" type="range" min="35" max="50" step="0.5" value="43.5" oninput="renderAnalysis()" class="w-full accent-blue-600"></div>
+      <div><label class="flex justify-between text-xs font-semibold text-slate-700">OPEX mensual <span id="an-opex-v" class="text-blue-600"></span></label><input id="an-opex" type="range" min="4" max="7" step="0.1" value="5.3" oninput="renderAnalysis()" class="w-full accent-blue-600"></div>
+      <div><label class="flex justify-between text-xs font-semibold text-slate-700">Recupero stock y capital de trabajo (año 5) <span id="an-rec-v" class="text-blue-600"></span></label><input id="an-rec" type="range" min="0" max="30" step="1" value="30" oninput="renderAnalysis()" class="w-full accent-blue-600"></div>
+    </div>
+    <div class="lg:col-span-2 bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+      <h3 class="text-base font-bold text-slate-800 mb-1">Flujo anual: modelo del documento vs. margen − OPEX</h3>
+      <p class="text-[11px] text-slate-500 mb-3">Las barras rojas son años con pérdida operativa.</p>
+      <div class="h-64"><canvas id="chart-analisis"></canvas></div>
+    </div>
+  </div>
+  <div class="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+    <h3 class="text-base font-bold text-slate-800 mb-1">Sensibilidad del VAN (millones CLP)</h3>
+    <p class="text-[11px] text-slate-500 mb-3">Ventas del año 1 (filas) frente al margen bruto (columnas). Verde: VAN positivo.</p>
+    <div class="overflow-x-auto"><table class="w-full text-xs text-center border-collapse" id="an-sens"></table></div>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+      <h3 class="font-bold text-slate-800 mb-3">⚠️ Hallazgos del análisis</h3>
+      <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
+        <li><b>Año 1 bajo el equilibrio:</b> ventas de $135 M con margen bruto de 43,5% dejan ~$58,7 M, menos que el OPEX anual de $63,6 M.</li>
+        <li><b>VAN del documento:</b> los $48,5 M equivalen a un margen neto de ~17,4%, que el modelo margen − OPEX solo alcanza hacia el año 5.</li>
+        <li><b>TIR inconsistente:</b> con ese margen la TIR sería ~41%, no 31,2%; el VAN y el payback sí se reproducen.</li>
+        <li><b>Sin impuestos:</b> los flujos no descuentan impuesto a la renta ni depreciación.</li>
+        <li><b>Gráfico corregido:</b> la distribución de alumnos usa ahora 3.500 / 18.500 / 16.500 según el documento.</li>
+      </ul>
+    </div>
+    <div class="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+      <h3 class="font-bold text-slate-800 mb-3">✅ Palancas recomendadas</h3>
+      <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
+        <li><b>Asegurar volumen:</b> cerrar convenios con los colegios Fase 1 para superar las ventas de equilibrio ya en el año 1.</li>
+        <li><b>Flexibilizar el OPEX:</b> contratos de arriendo escalonados y personal de refuerzo solo en el peak.</li>
+        <li><b>Stock por etapas:</b> comprar primero el Top 5 de colegios y reponer según rotación real.</li>
+        <li><b>Validar con datos:</b> las encuestas a apoderados deben confirmar el precio medio y la cuota de mercado alcanzable.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- TAB 4: MARKETING 360° -->
+            <section id="tab-marketing" class="tab-content space-y-6 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="bg-blue-100 text-blue-600 p-2.5 rounded-lg"><span aria-hidden="true">🤝</span></div>
+                            <h3 class="font-bold text-slate-800">1. Convenios B2B con Colegios & CGPA</h3>
+                        </div>
+                        <ul class="text-xs space-y-2 text-slate-600 list-disc list-inside">
+                            <li><strong>Roadshow de Muestras (Sep - Nov):</strong> Presentación de calidad de lana y confección a directivas de apoderados.</li>
+                            <li><strong>Descuentos por Preventa Escolar:</strong> 10% de descuento en pedidos agendados antes de Diciembre.</li>
+                            <li><strong>Programa de Becas de Uniforme:</strong> Apoyo con prendas gratuitas para alumnos vulnerables de colegios en convenio.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="bg-purple-100 text-purple-600 p-2.5 rounded-lg"><span aria-hidden="true">📱</span></div>
+                            <h3 class="font-bold text-slate-800">2. Marketing Digital para Apoderados</h3>
+                        </div>
+                        <ul class="text-xs space-y-2 text-slate-600 list-disc list-inside">
+                            <li><strong>Meta Ads Segmentados (Osorno):</strong> Publicidad enfocada en padres y madres entre 28 y 55 años.</li>
+                            <li><strong>SEO Local Google My Business:</strong> Optimización de búsquedas como "uniformes escolares Osorno".</li>
+                            <li><strong>Canal WhatsApp Escolar:</strong> Cotización rápida, catálogo por colegio y agendamiento de horas para pruebas de ropa.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="bg-amber-100 text-amber-600 p-2.5 rounded-lg"><span aria-hidden="true">📻</span></div>
+                            <h3 class="font-bold text-slate-800">3. Difusión en Medios Locales Osorno</h3>
+                        </div>
+                        <ul class="text-xs space-y-2 text-slate-600 list-disc list-inside">
+                            <li><strong>Radio Sago & Musicoop:</strong> Spots radiales intensivos en horarios clave durante Enero, Febrero y Julio.</li>
+                            <li><strong>El Diario Austral de Osorno:</strong> Notas sobre durabilidad y resistencia al clima del sur en vestuario escolar.</li>
+                            <li><strong>Volantes con Muestras de Tela:</strong> Entrega a la salida de colegios con muestras de textura anti-pilling.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="bg-emerald-100 text-emerald-600 p-2.5 rounded-lg"><span aria-hidden="true">🏬</span></div>
+                            <h3 class="font-bold text-slate-800">4. Experiencia en Tienda (Retail CX)</h3>
+                        </div>
+                        <ul class="text-xs space-y-2 text-slate-600 list-disc list-inside">
+                            <li><strong>Probadores Amplios y Cómodos:</strong> Atención expedita para familias durante el peak de compras de febrero.</li>
+                            <li><strong>Garantía Total de Cambio:</strong> Cambios de talla sin fricción durante todo el año académico.</li>
+                            <li><strong>Disponibilidad Permanentes:</strong> Reposición semanal garantizada desde fábrica Santiago.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: HOJA DE RUTA / GANTT -->
+            <section id="tab-gantt" class="tab-content space-y-6">
+<div class="rounded-2xl p-5 sm:p-6 text-white shadow-md" style="background:linear-gradient(120deg,#1e40af,#0ea5e9)">
+  <p class="text-[11px] font-bold uppercase tracking-widest opacity-80">Punto de partida</p>
+  <h2 class="text-xl sm:text-2xl font-bold mt-1">Hoja de Ruta: de la idea a la apertura en 5 meses</h2>
+  <p class="text-sm opacity-90 mt-1">Primero se valida el mercado y se asegura el local; luego se construye, se abastece y se lanza para el peak escolar de enero a marzo.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+    <div class="bg-white/15 rounded-xl p-3"><b class="text-lg block">5 meses</b><span class="text-[11px] opacity-90">hasta la apertura</span></div>
+    <div class="bg-white/15 rounded-xl p-3"><b class="text-lg block">5 fases</b><span class="text-[11px] opacity-90">investigación a operación</span></div>
+    <div class="bg-white/15 rounded-xl p-3"><b class="text-lg block">$54,5 M</b><span class="text-[11px] opacity-90">inversión inicial</span></div>
+    <div class="bg-white/15 rounded-xl p-3"><b class="text-lg block">70%</b><span class="text-[11px] opacity-90">de la venta anual: dic–mar</span></div>
+  </div>
+</div>
+<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6">
+  <h3 class="font-bold text-slate-800">Diagrama de Gantt</h3>
+  <p class="text-xs text-slate-500 mb-4">Toca una barra para ver el detalle de la actividad.</p>
+  <div class="grid grid-cols-5 text-center text-[10px] sm:text-xs font-bold text-slate-500 mb-3 border-b border-slate-200 pb-1"><span>Mes 1</span><span>Mes 2</span><span>Mes 3</span><span>Mes 4</span><span>Mes 5</span></div>
+  <div id="gantt-rows" class="space-y-3"></div>
+  <div id="gantt-detail" class="mt-4 text-xs bg-slate-50 border border-slate-200 rounded-lg p-3 text-slate-600">Selecciona una actividad para ver su detalle.</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-6">
+  <h3 class="font-bold text-slate-800 mb-3">Próximos pasos inmediatos</h3>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+    <div class="p-3 rounded-lg bg-blue-50 border border-blue-100"><b class="text-blue-700">1 · Top 5 de colegios</b><p class="text-slate-600 mt-1">Definir los cinco uniformes con mayor matrícula para iniciar con stock garantizado.</p></div>
+    <div class="p-3 rounded-lg bg-amber-50 border border-amber-100"><b class="text-amber-700">2 · Inspección de locales</b><p class="text-slate-600 mt-1">Visitar inmuebles disponibles en el sector Mackenna y en el centro de Osorno.</p></div>
+    <div class="p-3 rounded-lg bg-emerald-50 border border-emerald-100"><b class="text-emerald-700">3 · Estudio definitivo</b><p class="text-slate-600 mt-1">Aprobar el presupuesto e iniciar encuestas presenciales a apoderados en colegios.</p></div>
+  </div>
+</div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                    <h2 class="text-lg font-bold text-slate-800 mb-4">Cronograma de Apertura Sucursal Osorno (5 Meses)</h2>
+                    
+                    <div class="space-y-4">
+                        <!-- Step 1 -->
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-blue-600 uppercase">Mes 1</span>
+                                <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-medium">Fase 1: Investigación</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-slate-800">Estudio de Mercado & Catastro Escolar</h4>
+                            <p class="text-xs text-slate-500 mt-1">Levantamiento cuantitativo de matrículas, precios de la competencia en calle Ramírez y selección de colegios prioritarios.</p>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-blue-600 uppercase">Mes 2</span>
+                                <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-medium">Fase 2: Contratación & CGPA</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-slate-800">Búsqueda de Local Comercial & Convenios Escolares</h4>
+                            <p class="text-xs text-slate-500 mt-1">Firma de arriendo en sector Mackenna/Victoria y presentación de muestras de ropa a Centros General de Padres.</p>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-purple-600 uppercase">Mes 3</span>
+                                <span class="text-[10px] bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full font-medium">Fase 3: Infraestructura</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-slate-800">Remodelación del Local & Montaje de Probadores</h4>
+                            <p class="text-xs text-slate-500 mt-1">Adecuación de tienda, instalación de racks para ropa escolar, caja POS y zona de espera familiar.</p>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-indigo-600 uppercase">Mes 4</span>
+                                <span class="text-[10px] bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full font-medium">Fase 4: Inventario & Marketing</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-slate-800">Recepción de Stock Escolar & Campaña 360°</h4>
+                            <p class="text-xs text-slate-500 mt-1">Llegada del inventario inicial desde fábrica Santiago, capacitación de vendedoras e inicio de spots de radio y redes sociales.</p>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="border border-slate-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-emerald-600 uppercase">Mes 5</span>
+                                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-medium">Fase 5: Operación</span>
+                            </div>
+                            <h4 class="text-sm font-semibold text-slate-800">Apertura Oficial & Venta de Temporada Alta</h4>
+                            <p class="text-xs text-slate-500 mt-1">Inauguración del punto de venta y atención a apoderados para la campaña escolar presencial.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="bg-white border-t border-slate-200 mt-auto" style="padding-bottom:env(safe-area-inset-bottom,0px)">
+  <div class="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 text-center">
+    <div class="flex flex-col sm:flex-row items-center gap-1 sm:gap-5">
+      <a href="https://www.dataflowia.com" target="_blank" rel="noopener" class="font-semibold text-blue-700 hover:underline">www.dataflowia.com</a>
+      <a href="mailto:contacto@dataflowia.com" class="hover:underline">contacto@dataflowia.com</a>
+    </div>
+    <p>© 2026 Todos los derechos reservados</p>
+  </div>
+</footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Colegios Osorno - Ropa Escolar Exclusivo
+        const colegiosData = [
+            { nombre: "Instituto Alemán de Osorno", dependencia: "Particular Pagado", matricula: 1250, gastoAlumno: 82000, prioridad: "Alta" },
+            { nombre: "Osorno College", dependencia: "Particular Pagado", matricula: 1100, gastoAlumno: 78000, prioridad: "Alta" },
+            { nombre: "Colegio Alianza Francesa", dependencia: "Particular Pagado", matricula: 950, gastoAlumno: 75000, prioridad: "Alta" },
+            { nombre: "Colegio San Mateo", dependencia: "Particular Subvencionada", matricula: 1600, gastoAlumno: 55000, prioridad: "Alta" },
+            { nombre: "Colegio Santa Marta", dependencia: "Particular Subvencionada", matricula: 1400, gastoAlumno: 48000, prioridad: "Media" },
+            { nombre: "Colegio La Araucana", dependencia: "Particular Subvencionada", matricula: 900, gastoAlumno: 45000, prioridad: "Media" },
+            { nombre: "Liceo Carmela Carvajal de Prat", dependencia: "SLEP / Municipal", matricula: 1550, gastoAlumno: 35000, prioridad: "Media" },
+            { nombre: "Liceo Rahue", dependencia: "SLEP / Municipal", matricula: 850, gastoAlumno: 32000, prioridad: "Baja" }
+        ];
+
+        let cashflowChartInstance = null;
+        let dependenciaChartInstance = null;
+
+        // Switch Tabs Logic
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-tab').forEach(el => {
+                el.classList.remove('bg-blue-50', 'text-blue-700');
+                el.classList.add('text-slate-600');
+            });
+
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            activeBtn.classList.add('bg-blue-50', 'text-blue-700');
+            activeBtn.classList.remove('text-slate-600');
+
+            if(tabName === 'analisis') { renderAnalysis(); }
+            if(tabName === 'mercado' && !dependenciaChartInstance) {
+                renderDependenciaChart();
+            }
+        }
+
+        // Format Currency
+        function formatCLP(val) {
+            return '$' + Math.round(val).toLocaleString('es-CL');
+        }
+
+        // Render Colegios Table
+        function renderColegiosTable() {
+            const filter = document.getElementById('filter-dependencia').value;
+            const tbody = document.getElementById('colegios-tbody');
+            tbody.innerHTML = '';
+
+            const filtered = filter === 'todos' ? colegiosData : colegiosData.filter(c => c.dependencia === filter);
+
+            filtered.forEach(c => {
+                const totalMercado = c.matricula * c.gastoAlumno * 1.5; // 1.5 uniformes año
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+                
+                let badgeColor = c.prioridad === 'Alta' ? 'bg-emerald-100 text-emerald-800' : (c.prioridad === 'Media' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700');
+
+                tr.innerHTML = `
+                    <td class="p-3 font-medium text-slate-800">${c.nombre}</td>
+                    <td class="p-3 text-slate-500">${c.dependencia}</td>
+                    <td class="p-3 text-right font-medium">${c.matricula.toLocaleString('es-CL')}</td>
+                    <td class="p-3 text-right text-slate-600">${formatCLP(c.gastoAlumno)}</td>
+                    <td class="p-3 text-right text-emerald-700 font-semibold">${formatCLP(totalMercado)}</td>
+                    <td class="p-3 text-center"><span class="px-2 py-0.5 text-[10px] font-bold rounded-full ${badgeColor}">${c.prioridad}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Calculate Financial Simulation
+        function calculateFinancials() {
+            const capex = parseFloat(document.getElementById('input-capex').value) || 0;
+            const ventasY1 = parseFloat(document.getElementById('input-ventas-y1').value) || 0;
+            const growth = (parseFloat(document.getElementById('input-growth').value) || 0) / 100;
+            const margin = (parseFloat(document.getElementById('input-margin').value) || 0) / 100;
+            const wacc = (parseFloat(document.getElementById('input-wacc').value) || 0) / 100;
+
+            let cumulative = -capex;
+            const netCashFlows = [];
+            const cumulativeCashFlows = [];
+            const revenues = [];
+            const costs = [];
+
+            let van = -capex;
+
+            const tbody = document.getElementById('table-projections');
+            tbody.innerHTML = '';
+
+            for (let i = 0; i < 5; i++) {
+                const yearRev = i === 0 ? ventasY1 : revenues[i - 1] * (1 + growth);
+                const yearNet = yearRev * margin;
+                const yearCost = yearRev - yearNet;
+                cumulative += yearNet;
+
+                revenues.push(yearRev);
+                costs.push(yearCost);
+                netCashFlows.push(yearNet);
+                cumulativeCashFlows.push(cumulative);
+
+                van += yearNet / Math.pow(1 + wacc, i + 1);
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-2.5 font-bold text-slate-700">Año ${i+1}</td>
+                    <td class="p-2.5 text-right font-medium">${formatCLP(yearRev)}</td>
+                    <td class="p-2.5 text-right text-slate-500">${formatCLP(yearCost)}</td>
+                    <td class="p-2.5 text-right text-emerald-600 font-semibold">${formatCLP(yearNet)}</td>
+                    <td class="p-2.5 text-right font-bold ${cumulative >= 0 ? 'text-blue-600' : 'text-slate-500'}">${formatCLP(cumulative)}</td>
+                `;
+                tbody.appendChild(tr);
+            }
+
+            // Approximate IRR Calculation
+            let tir = 0.15;
+            for(let iter = 0; iter < 100; iter++) {
+                let npv = -capex;
+                let dNpv = 0;
+                for(let t = 0; t < 5; t++) {
+                    npv += netCashFlows[t] / Math.pow(1 + tir, t + 1);
+                    dNpv -= ((t + 1) * netCashFlows[t]) / Math.pow(1 + tir, t + 2);
+                }
+                let newTir = tir - npv / dNpv;
+                if(Math.abs(newTir - tir) < 0.0001) { tir = newTir; break; }
+                tir = newTir;
+            }
+
+            // Payback Period estimation
+            let paybackYears = 0;
+            let tempCum = -capex;
+            for(let t = 0; t < 5; t++) {
+                if(tempCum + netCashFlows[t] >= 0) {
+                    paybackYears = t + (Math.abs(tempCum) / netCashFlows[t]);
+                    break;
+                }
+                tempCum += netCashFlows[t];
+            }
+
+            // Update KPIs
+            document.getElementById('kpi-capex').innerText = formatCLP(capex);
+            document.getElementById('kpi-van').innerText = formatCLP(van);
+            document.getElementById('kpi-tir').innerText = (tir * 100).toFixed(1) + '%';
+            document.getElementById('kpi-payback').innerText = paybackYears > 0 ? paybackYears.toFixed(1) + ' años' : '> 5 años';
+
+            renderCashflowChart(revenues, netCashFlows);
+        }
+
+        // Render Cashflow Chart
+        function renderCashflowChart(revenues, netFlows) {
+            const ctx = document.getElementById('chart-cashflow').getContext('2d');
+
+            if (cashflowChartInstance) {
+                cashflowChartInstance.destroy();
+            }
+
+            cashflowChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4', 'Año 5'],
+                    datasets: [
+                        {
+                            label: 'Ventas Ropa Escolar (CLP)',
+                            data: revenues,
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                            borderColor: '#3b82f6',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Flujo Neto Operativo (CLP)',
+                            data: netFlows,
+                            backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                            borderColor: '#10b981',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: function(value) { return '$' + (value / 1000000).toFixed(0) + 'M'; }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render Pie Chart for Dependencia
+        function renderDependenciaChart() {
+            const ctx = document.getElementById('chart-dependencia').getContext('2d');
+            dependenciaChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Particular Pagado', 'Particular Subvencionada', 'SLEP / Municipal'],
+                    datasets: [{
+                        data: [3500, 18500, 16500],
+                        backgroundColor: ['#2563eb', '#f59e0b', '#64748b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            renderGantt();
+            renderColegiosTable();
+            calculateFinancials();
+        };
+
+const GANTT=[["Estudio de mercado y catastro de colegios",1,1,"#2563eb","Matrículas, competencia en calle Ramírez y selección del Top 5 de colegios prioritarios."],
+["Arriendo del local (Mackenna/Victoria)",2,2,"#f59e0b","Inmueble de 100–140 m²: 50% showroom con probadores y 50% bodega por colegio y talla."],
+["Convenios con colegios y CGPA",2,4,"#f59e0b","Roadshow de muestras y acuerdos: becas de uniforme y 10% de descuento en compras anticipadas."],
+["Remodelación y bodega",3,3,"#7c3aed","Racks, probadores amplios, cajas y sistema POS."],
+["Llegada de inventario",4,4,"#4f46e5","Stock inicial desde la fábrica de Santiago y capacitación del equipo de ventas."],
+["Campaña Marketing 360°",4,5,"#4f46e5","Radio Sago y Musicoop, Meta Ads en 25 km, volanteo con muestra de tela y WhatsApp Business."],
+["Apertura oficial y peak escolar",5,5,"#10b981","Corte de cinta, venta a apoderados y reposición semanal de stock."]];
+function renderGantt(){
+  document.getElementById('gantt-rows').innerHTML=GANTT.map((t,i)=>`<div><p class="text-[11px] sm:text-xs font-medium text-slate-700 mb-1">${t[0]}</p><div class="grid grid-cols-5 bg-slate-100 rounded-md h-7"><button onclick="ganttInfo(${i})" class="rounded-md h-7 hover:opacity-80 transition-opacity" style="grid-column:${t[1]}/${t[2]+1};background:${t[3]}" aria-label="${t[0]}"></button></div></div>`).join('');
+}
+function ganttInfo(i){const t=GANTT[i];const d=document.getElementById('gantt-detail');d.innerHTML=`<b style="color:${t[3]}">${t[0]}</b> · Mes ${t[1]}${t[2]>t[1]?' al '+t[2]:''}<br>${t[4]}`;}
+
+const DEP_MAT={'Particular Pagado':3500,'Particular Subvencionada':18500,'SLEP / Municipal':16500};
+let analisisChart=null;
+function npvF(capex,fl,w){return -capex+fl.reduce((a,f,i)=>a+f/Math.pow(1+w,i+1),0);}
+function irrF(capex,fl){let lo=-0.9,hi=5;if(npvF(capex,fl,lo)*npvF(capex,fl,hi)>0)return null;for(let k=0;k<100;k++){const m=(lo+hi)/2;if(npvF(capex,fl,lo)*npvF(capex,fl,m)<=0)hi=m;else lo=m;}return (lo+hi)/2;}
+function buFlows(v1,gm,opex,g,rec){const f=[];for(let i=0;i<5;i++){f.push(v1*Math.pow(1+g,i)*gm-opex*12);}f[4]+=rec;return f;}
+const fM=v=>(v/1e6).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});
+function renderAnalisis_inputs(){
+  const g=id=>parseFloat(document.getElementById(id).value)||0;
+  return {capex:g('input-capex'),v1:g('input-ventas-y1'),gr:g('input-growth')/100,mg:g('input-margin')/100,w:g('input-wacc')/100,gm:g('an-gm')/100,opex:g('an-opex')*1e6,rec:g('an-rec')*1e6};
+}
+function renderAnalysis(){
+  const p=renderAnalisis_inputs();
+  document.getElementById('an-gm-v').textContent=(p.gm*100).toFixed(1).replace('.',',')+'%';
+  document.getElementById('an-opex-v').textContent='$'+fM(p.opex)+' M';
+  document.getElementById('an-rec-v').textContent='$'+fM(p.rec)+' M';
+  const fl=buFlows(p.v1,p.gm,p.opex,p.gr,p.rec);
+  const van=npvF(p.capex,fl,p.w), tir=irrF(p.capex,fl), be=p.opex*12/p.gm;
+  let lo=0,hi=2e9;for(let k=0;k<60;k++){const m=(lo+hi)/2;if(npvF(p.capex,buFlows(m,p.gm,p.opex,p.gr,p.rec),p.w)<0)lo=m;else hi=m;}
+  const need=hi;
+  let mkt=0;colegiosData.forEach(()=>{});
+  Object.keys(DEP_MAT).forEach(d=>{const c=colegiosData.filter(x=>x.dependencia===d);const avg=c.reduce((a,x)=>a+x.gastoAlumno,0)/c.length;mkt+=DEP_MAT[d]*avg*1.5;});
+  document.getElementById('an-be').textContent='$'+fM(be)+' M';
+  const vEl=document.getElementById('an-van');vEl.textContent=(van<0?'−':'')+'$'+fM(Math.abs(van))+' M';vEl.className='text-xl font-bold mt-1 '+(van>=0?'text-emerald-600':'text-rose-600');
+  document.getElementById('an-tir').textContent=tir===null?'n/d':(tir*100).toFixed(1).replace('.',',')+'%';
+  document.getElementById('an-share').textContent=(p.v1/mkt*100).toFixed(1).replace('.',',')+'%';
+  document.getElementById('an-mkt').textContent='Mercado estimado: $'+Math.round(mkt/1e6).toLocaleString('es-CL')+' M';
+  const ve=document.getElementById('an-verdict');
+  if(van>=0){ve.className='rounded-xl p-4 text-sm font-semibold border bg-emerald-50 border-emerald-200 text-emerald-800';ve.textContent='✅ Viable con estos supuestos: VAN de $'+fM(van)+' M. Las ventas de equilibrio operativo son $'+fM(be)+' M.';}
+  else{ve.className='rounded-xl p-4 text-sm font-semibold border bg-amber-50 border-amber-200 text-amber-800';ve.textContent='⚠️ Con margen bruto menos OPEX el VAN es negativo ($'+fM(van)+' M). Para VAN cero se necesitan ventas del año 1 cercanas a $'+fM(need)+' M, o un OPEX menor.';}
+  const sim=[];for(let i=0;i<5;i++)sim.push(p.v1*Math.pow(1+p.gr,i)*p.mg);
+  if(analisisChart)analisisChart.destroy();
+  analisisChart=new Chart(document.getElementById('chart-analisis').getContext('2d'),{type:'bar',data:{labels:['Año 1','Año 2','Año 3','Año 4','Año 5'],datasets:[{label:'Margen − OPEX (CLP)',data:fl,backgroundColor:fl.map(v=>v<0?'#ef4444':'#0ea5e9')},{type:'line',label:'Modelo documento (CLP)',data:sim,borderColor:'#f59e0b',backgroundColor:'#f59e0b',borderWidth:3,tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>'$'+(v/1e6).toFixed(0)+'M'}}}}});
+  const gms=[0.40,0.435,0.47],vs=[110e6,135e6,150e6,165e6,185e6];
+  let h='<thead><tr class="bg-slate-100 text-slate-600"><th class="p-2 text-left">Ventas año 1</th>'+gms.map(x=>'<th class="p-2">MB '+(x*100).toFixed(1).replace('.',',')+'%</th>').join('')+'</tr></thead><tbody>';
+  vs.forEach(v=>{h+='<tr class="border-t border-slate-100"><td class="p-2 text-left font-semibold">$'+(v/1e6)+' M</td>'+gms.map(x=>{const n=npvF(p.capex,buFlows(v,x,p.opex,p.gr,p.rec),p.w);return '<td class="p-2 font-semibold '+(n>=0?'bg-emerald-100 text-emerald-800':'bg-rose-100 text-rose-800')+'">'+(n<0?'−':'')+fM(Math.abs(n))+'</td>';}).join('')+'</tr>';});
+  document.getElementById('an-sens').innerHTML=h+'</tbody>';
+}
+    </script>
+</body>
+</html>
