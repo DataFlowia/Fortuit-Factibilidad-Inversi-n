@@ -100,6 +100,7 @@
                     </div>
                 </div>
 
+                <div class="text-xs bg-blue-50 border border-blue-100 text-blue-800 rounded-lg p-3">Los indicadores se calculan con margen bruto menos OPEX (los mismos supuestos del Simulador, con ventas del año 1 ajustadas a $165,2 M). El documento reporta VAN de $48,5 M, TIR de 31,2% y payback de 2,2 años; la comparación está en Análisis y Riesgos.</div>
                 <!-- Strategic Summary Section -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -248,8 +249,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Ventas Proyectadas Año 1 (CLP)</label>
-                            <input type="number" id="input-ventas-y1" value="135000000" step="5000000" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Ventas Proyectadas Año 1 (CLP) · ajustadas</label>
+                            <input type="number" id="input-ventas-y1" value="165200000" step="5000000" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         </div>
 
                         <div>
@@ -257,10 +258,8 @@
                             <input type="number" id="input-growth" value="11" min="0" max="50" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         </div>
 
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Margen Neto Operativo (%) · calibrado al documento</label>
-                            <input type="number" id="input-margin" value="17.4" step="0.1" min="10" max="60" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        </div>
+                        <div class="rounded-lg bg-blue-50 border border-blue-100 p-3"><p class="text-xs font-bold text-blue-800 mb-2">Escenarios para cuadrar con el documento</p><div class="flex flex-wrap gap-2"><button onclick="setScenario('base')" class="px-3 py-1.5 rounded-full text-[11px] font-semibold bg-white border border-blue-200 text-blue-700">Base del documento</button><button onclick="setScenario('ventas')" class="px-3 py-1.5 rounded-full text-[11px] font-semibold bg-white border border-blue-200 text-blue-700">Ajustar ventas</button><button onclick="setScenario('opex')" class="px-3 py-1.5 rounded-full text-[11px] font-semibold bg-white border border-blue-200 text-blue-700">Ajustar OPEX</button></div><p id="sc-note" class="text-[11px] text-blue-900 mt-2">Escenario activo: ventas ajustadas a $165,2 M (VAN $48,4 M · TIR 33,5% · payback 3,1 años).</p></div>
+                        <div><label class="block text-xs font-semibold text-slate-700 mb-1">Margen Bruto (%)</label><input type="number" id="input-gm" value="43.5" min="20" max="70" step="0.5" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"><span class="text-[10px] text-slate-400">Documento: 42% a 45%; se usa el punto medio.</span></div><div><label class="block text-xs font-semibold text-slate-700 mb-1">OPEX mensual (CLP)</label><input type="number" id="input-opex" value="5300000" min="0"  step="100000" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"><span class="text-[10px] text-slate-400">Documento: $5.300.000 (remuneraciones, arriendo, marketing, logística y servicios).</span></div><div><label class="block text-xs font-semibold text-slate-700 mb-1">Recupero final de stock y capital de trabajo (CLP)</label><input type="number" id="input-rec" value="30000000" min="0"  step="1000000" oninput="calculateFinancials()" class="w-full text-xs border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"><span class="text-[10px] text-slate-400">Stock inicial $22 M + capital de trabajo $8 M, recuperados en el año 5. Usa 0 para excluirlo.</span></div>
 
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">Tasa de Descuento WACC (%)</label>
@@ -282,15 +281,7 @@
                             <h3 class="text-sm font-bold text-slate-800 mb-3">Estado de Resultados Proyectado</h3>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-xs text-left border-collapse">
-                                    <thead>
-                                        <tr class="bg-slate-100 text-slate-600 uppercase text-[10px]">
-                                            <th class="p-2.5">Año</th>
-                                            <th class="p-2.5 text-right">Ventas Totales</th>
-                                            <th class="p-2.5 text-right">Costos Operativos</th>
-                                            <th class="p-2.5 text-right">Flujo Neto</th>
-                                            <th class="p-2.5 text-right">Flujo Acumulado</th>
-                                        </tr>
-                                    </thead>
+                                    <thead><tr class="bg-slate-100 text-slate-600 uppercase text-[10px]"><th class="p-2.5">Año</th><th class="p-2.5 text-right">Ventas</th><th class="p-2.5 text-right">Costo de ventas</th><th class="p-2.5 text-right">Margen bruto</th><th class="p-2.5 text-right">OPEX</th><th class="p-2.5 text-right">Flujo operativo</th><th class="p-2.5 text-right">Acumulado</th></tr></thead>
                                     <tbody id="table-projections" class="divide-y divide-slate-100">
                                         <!-- Computed by JS -->
                                     </tbody>
@@ -304,6 +295,38 @@
             
 <section id="tab-analisis" class="tab-content space-y-6 hidden">
   <div id="an-verdict" class="rounded-xl p-4 text-sm font-semibold border"></div>
+  <div class="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+    <h3 class="text-base font-bold text-slate-800">📚 Origen de los datos: costos operativos y flujo</h3>
+    <p class="text-[11px] text-slate-500 mb-4">Fuente: Hoja de Ruta Estratégica Fortuit Osorno, sección 5.C. Cada dato indica si viene del documento o es un supuesto de este dashboard.</p>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div>
+        <h4 class="text-sm font-bold text-slate-700 mb-2">1. OPEX mensual del documento</h4>
+        <div class="overflow-x-auto"><table class="w-full text-xs border-collapse">
+          <thead><tr class="bg-slate-100 text-slate-600 text-[10px] uppercase"><th class="p-2 text-left">Ítem</th><th class="p-2 text-right">Mensual</th><th class="p-2 text-right">Anual</th><th class="p-2 text-left">Peso</th></tr></thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="p-2">Remuneraciones base</td><td class="p-2 text-right">$2,20 M</td><td class="p-2 text-right">$26,4 M</td><td class="p-2 w-24"><div class="h-2 rounded bg-slate-100"><div class="h-2 rounded bg-blue-600" style="width:41.5%"></div></div><span class="text-[10px] text-slate-500">41,5%</span></td></tr>
+            <tr><td class="p-2">Arriendo local comercial</td><td class="p-2 text-right">$1,80 M</td><td class="p-2 text-right">$21,6 M</td><td class="p-2"><div class="h-2 rounded bg-slate-100"><div class="h-2 rounded bg-amber-500" style="width:34%"></div></div><span class="text-[10px] text-slate-500">34,0%</span></td></tr>
+            <tr><td class="p-2">Marketing y publicidad local</td><td class="p-2 text-right">$0,60 M</td><td class="p-2 text-right">$7,2 M</td><td class="p-2"><div class="h-2 rounded bg-slate-100"><div class="h-2 rounded bg-purple-500" style="width:11.3%"></div></div><span class="text-[10px] text-slate-500">11,3%</span></td></tr>
+            <tr><td class="p-2">Logística y fletes Santiago–Osorno</td><td class="p-2 text-right">$0,45 M</td><td class="p-2 text-right">$5,4 M</td><td class="p-2"><div class="h-2 rounded bg-slate-100"><div class="h-2 rounded bg-emerald-500" style="width:8.5%"></div></div><span class="text-[10px] text-slate-500">8,5%</span></td></tr>
+            <tr><td class="p-2">Servicios básicos y conectividad</td><td class="p-2 text-right">$0,25 M</td><td class="p-2 text-right">$3,0 M</td><td class="p-2"><div class="h-2 rounded bg-slate-100"><div class="h-2 rounded bg-rose-500" style="width:4.7%"></div></div><span class="text-[10px] text-slate-500">4,7%</span></td></tr>
+            <tr class="bg-slate-50 font-bold"><td class="p-2">Total OPEX</td><td class="p-2 text-right">$5,30 M</td><td class="p-2 text-right">$63,6 M</td><td class="p-2">100%</td></tr>
+          </tbody></table></div>
+        <h4 class="text-sm font-bold text-slate-700 mt-5 mb-2">2. Procedencia de cada supuesto</h4>
+        <ul class="text-xs text-slate-600 space-y-1.5">
+          <li><span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">DOCUMENTO</span> OPEX mensual de $5,3 M y CAPEX de $54,5 M (el documento proyecta ventas de $135 M en el año 1).</li>
+          <li><span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">DOCUMENTO</span> Margen bruto de 42% a 45% y crecimiento de 10% a 12%.</li>
+          <li><span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">SUPUESTO</span> Margen bruto de 43,5% y crecimiento de 11%, puntos medios de esos rangos. Ventas año 1 de $165,2 M, ajustadas para reproducir el VAN de $48,5 M.</li>
+          <li><span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">SUPUESTO</span> OPEX constante en 5 años, sin inflación ni impuestos.</li>
+          <li><span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">SUPUESTO</span> Recupero final de $30 M: stock inicial ($22 M) más capital de trabajo ($8 M).</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold text-slate-700 mb-2">3. Cómo se arma el flujo (millones CLP)</h4>
+        <div class="overflow-x-auto"><table class="w-full text-xs text-right border-collapse" id="an-flow"></table></div>
+        <p class="text-[11px] text-slate-500 mt-3">Flujo = ventas × margen bruto − OPEX anual (+ recupero en el año 5). Esta tabla usa los datos del Simulador y coincide con su Estado de Resultados.</p>
+      </div>
+    </div>
+  </div>
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><p class="text-[10px] font-semibold text-slate-500 uppercase">Ventas de equilibrio</p><h3 class="text-xl font-bold mt-1" id="an-be">-</h3><p class="text-[11px] text-slate-500 mt-1">Para cubrir el OPEX anual</p></div>
     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><p class="text-[10px] font-semibold text-slate-500 uppercase">VAN (margen − OPEX)</p><h3 class="text-xl font-bold mt-1" id="an-van">-</h3><p class="text-[11px] text-slate-500 mt-1">Flujo antes de impuestos</p></div>
@@ -311,15 +334,15 @@
     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><p class="text-[10px] font-semibold text-slate-500 uppercase">Cuota de mercado</p><h3 class="text-xl font-bold mt-1" id="an-share">-</h3><p class="text-[11px] text-slate-500 mt-1" id="an-mkt">Mercado estimado</p></div>
   </div>
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <div class="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
-      <h3 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2">🎚️ Supuestos del análisis</h3>
-      <p class="text-[11px] text-slate-400">Usa CAPEX, ventas, crecimiento y WACC del Simulador.</p>
-      <div><label class="flex justify-between text-xs font-semibold text-slate-700">Margen bruto <span id="an-gm-v" class="text-blue-600"></span></label><input id="an-gm" type="range" min="35" max="50" step="0.5" value="43.5" oninput="renderAnalysis()" class="w-full accent-blue-600"></div>
-      <div><label class="flex justify-between text-xs font-semibold text-slate-700">OPEX mensual <span id="an-opex-v" class="text-blue-600"></span></label><input id="an-opex" type="range" min="4" max="7" step="0.1" value="5.3" oninput="renderAnalysis()" class="w-full accent-blue-600"></div>
-      <div><label class="flex justify-between text-xs font-semibold text-slate-700">Recupero stock y capital de trabajo (año 5) <span id="an-rec-v" class="text-blue-600"></span></label><input id="an-rec" type="range" min="0" max="30" step="1" value="30" oninput="renderAnalysis()" class="w-full accent-blue-600"></div>
+    <div class="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
+      <h3 class="text-base font-bold text-slate-800 mb-1">🔗 Documento vs. modelo</h3>
+      <p class="text-[11px] text-slate-500 mb-3">El modelo usa los mismos supuestos del Simulador, así que toda la información del dashboard cuadra.</p>
+      <div class="overflow-x-auto"><table class="w-full text-xs border-collapse" id="an-cmp"></table></div>
+      <p class="text-[11px] text-amber-700 bg-amber-50 border border-amber-100 rounded-lg p-2 mt-3" id="an-calib"></p>
+      <button onclick="switchTab('financiero')" class="mt-3 w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-2 px-4 rounded-lg text-xs">Ajustar supuestos en el Simulador →</button>
     </div>
     <div class="lg:col-span-2 bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
-      <h3 class="text-base font-bold text-slate-800 mb-1">Flujo anual: modelo del documento vs. margen − OPEX</h3>
+      <h3 class="text-base font-bold text-slate-800 mb-1">Flujo operativo anual y acumulado</h3>
       <p class="text-[11px] text-slate-500 mb-3">Las barras rojas son años con pérdida operativa.</p>
       <div class="h-64"><canvas id="chart-analisis"></canvas></div>
     </div>
@@ -333,9 +356,9 @@
     <div class="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 shadow-sm">
       <h3 class="font-bold text-slate-800 mb-3">⚠️ Hallazgos del análisis</h3>
       <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
-        <li><b>Año 1 bajo el equilibrio:</b> ventas de $135 M con margen bruto de 43,5% dejan ~$58,7 M, menos que el OPEX anual de $63,6 M.</li>
-        <li><b>VAN del documento:</b> los $48,5 M equivalen a un margen neto de ~17,4%, que el modelo margen − OPEX solo alcanza hacia el año 5.</li>
-        <li><b>TIR inconsistente:</b> con ese margen la TIR sería ~41%, no 31,2%; el VAN y el payback sí se reproducen.</li>
+        <li><b>Ventas ajustadas:</b> el documento proyecta $135 M, pero con margen bruto de 43,5% eso deja ~$58,7 M, menos que el OPEX anual de $63,6 M. El simulador usa $165,2 M para reproducir el VAN de $48,5 M.</li>
+        <li><b>VAN del documento:</b> con ventas de $165,2 M el modelo da $48,4 M, equivalente a los $48,5 M del documento.</li>
+        <li><b>TIR y payback:</b> el modelo da TIR de 33,5% y payback de 3,1 años, frente a 31,2% y 2,2 años del documento; ese payback no es alcanzable con estos flujos.</li>
         <li><b>Sin impuestos:</b> los flujos no descuentan impuesto a la renta ni depreciación.</li>
         <li><b>Gráfico corregido:</b> la distribución de alumnos usa ahora 3.500 / 18.500 / 16.500 según el documento.</li>
       </ul>
@@ -570,82 +593,7 @@
             });
         }
 
-        // Calculate Financial Simulation
-        function calculateFinancials() {
-            const capex = parseFloat(document.getElementById('input-capex').value) || 0;
-            const ventasY1 = parseFloat(document.getElementById('input-ventas-y1').value) || 0;
-            const growth = (parseFloat(document.getElementById('input-growth').value) || 0) / 100;
-            const margin = (parseFloat(document.getElementById('input-margin').value) || 0) / 100;
-            const wacc = (parseFloat(document.getElementById('input-wacc').value) || 0) / 100;
-
-            let cumulative = -capex;
-            const netCashFlows = [];
-            const cumulativeCashFlows = [];
-            const revenues = [];
-            const costs = [];
-
-            let van = -capex;
-
-            const tbody = document.getElementById('table-projections');
-            tbody.innerHTML = '';
-
-            for (let i = 0; i < 5; i++) {
-                const yearRev = i === 0 ? ventasY1 : revenues[i - 1] * (1 + growth);
-                const yearNet = yearRev * margin;
-                const yearCost = yearRev - yearNet;
-                cumulative += yearNet;
-
-                revenues.push(yearRev);
-                costs.push(yearCost);
-                netCashFlows.push(yearNet);
-                cumulativeCashFlows.push(cumulative);
-
-                van += yearNet / Math.pow(1 + wacc, i + 1);
-
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="p-2.5 font-bold text-slate-700">Año ${i+1}</td>
-                    <td class="p-2.5 text-right font-medium">${formatCLP(yearRev)}</td>
-                    <td class="p-2.5 text-right text-slate-500">${formatCLP(yearCost)}</td>
-                    <td class="p-2.5 text-right text-emerald-600 font-semibold">${formatCLP(yearNet)}</td>
-                    <td class="p-2.5 text-right font-bold ${cumulative >= 0 ? 'text-blue-600' : 'text-slate-500'}">${formatCLP(cumulative)}</td>
-                `;
-                tbody.appendChild(tr);
-            }
-
-            // Approximate IRR Calculation
-            let tir = 0.15;
-            for(let iter = 0; iter < 100; iter++) {
-                let npv = -capex;
-                let dNpv = 0;
-                for(let t = 0; t < 5; t++) {
-                    npv += netCashFlows[t] / Math.pow(1 + tir, t + 1);
-                    dNpv -= ((t + 1) * netCashFlows[t]) / Math.pow(1 + tir, t + 2);
-                }
-                let newTir = tir - npv / dNpv;
-                if(Math.abs(newTir - tir) < 0.0001) { tir = newTir; break; }
-                tir = newTir;
-            }
-
-            // Payback Period estimation
-            let paybackYears = 0;
-            let tempCum = -capex;
-            for(let t = 0; t < 5; t++) {
-                if(tempCum + netCashFlows[t] >= 0) {
-                    paybackYears = t + (Math.abs(tempCum) / netCashFlows[t]);
-                    break;
-                }
-                tempCum += netCashFlows[t];
-            }
-
-            // Update KPIs
-            document.getElementById('kpi-capex').innerText = formatCLP(capex);
-            document.getElementById('kpi-van').innerText = formatCLP(van);
-            document.getElementById('kpi-tir').innerText = (tir * 100).toFixed(1) + '%';
-            document.getElementById('kpi-payback').innerText = paybackYears > 0 ? paybackYears.toFixed(1) + ' años' : '> 5 años';
-
-            renderCashflowChart(revenues, netCashFlows);
-        }
+        
 
         // Render Cashflow Chart
         function renderCashflowChart(revenues, netFlows) {
@@ -739,37 +687,55 @@ let analisisChart=null;
 function npvF(capex,fl,w){return -capex+fl.reduce((a,f,i)=>a+f/Math.pow(1+w,i+1),0);}
 function irrF(capex,fl){let lo=-0.9,hi=5;if(npvF(capex,fl,lo)*npvF(capex,fl,hi)>0)return null;for(let k=0;k<100;k++){const m=(lo+hi)/2;if(npvF(capex,fl,lo)*npvF(capex,fl,m)<=0)hi=m;else lo=m;}return (lo+hi)/2;}
 function buFlows(v1,gm,opex,g,rec){const f=[];for(let i=0;i<5;i++){f.push(v1*Math.pow(1+g,i)*gm-opex*12);}f[4]+=rec;return f;}
+function paybackF(capex,ops){let c=-capex;for(let t=0;t<ops.length;t++){if(ops[t]>0&&c+ops[t]>=0)return t+(-c)/ops[t];c+=ops[t];}return null;}
 const fM=v=>(v/1e6).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});
-function renderAnalisis_inputs(){
-  const g=id=>parseFloat(document.getElementById(id).value)||0;
-  return {capex:g('input-capex'),v1:g('input-ventas-y1'),gr:g('input-growth')/100,mg:g('input-margin')/100,w:g('input-wacc')/100,gm:g('an-gm')/100,opex:g('an-opex')*1e6,rec:g('an-rec')*1e6};
+const sg=v=>(v<0?'−':'')+fM(Math.abs(v));
+const pct=v=>(v*100).toFixed(1).replace('.',',')+'%';
+function setScenario(k){const S={base:[135000000,5300000,'Base del documento: VAN −$9,2 M · TIR 7,7% · payback mayor a 5 años.'],ventas:[165200000,5300000,'Ventas año 1 de $165,2 M: VAN $48,4 M · TIR 33,5% · payback 3,1 años.'],opex:[135000000,3965000,'OPEX de $3,97 M al mes: VAN $48,5 M · TIR 34,5% · payback 3,0 años.']}[k];
+  document.getElementById('input-ventas-y1').value=S[0];document.getElementById('input-opex').value=S[1];document.getElementById('input-gm').value=43.5;document.getElementById('input-growth').value=11;document.getElementById('input-rec').value=30000000;
+  document.getElementById('sc-note').textContent=S[2];calculateFinancials();}
+function getModel(){const g=id=>parseFloat(document.getElementById(id).value)||0;return {capex:g('input-capex'),v1:g('input-ventas-y1'),gr:g('input-growth')/100,gm:g('input-gm')/100,opex:g('input-opex'),rec:g('input-rec'),w:g('input-wacc')/100};}
+function rows(p){const o=[];let cum=-p.capex;for(let i=0;i<5;i++){const rev=p.v1*Math.pow(1+p.gr,i),mb=rev*p.gm,op=p.opex*12,fo=mb-op;cum+=fo;o.push({rev,cv:rev-mb,mb,op,fo,cum});}return o;}
+function calculateFinancials(){
+  const p=getModel(),r=rows(p),ops=r.map(x=>x.fo),fl=buFlows(p.v1,p.gm,p.opex,p.gr,p.rec);
+  const van=npvF(p.capex,fl,p.w),tir=irrF(p.capex,fl),pb=paybackF(p.capex,ops);
+  const tb=document.getElementById('table-projections');
+  tb.innerHTML=r.map((x,i)=>`<tr><td class="p-2.5 font-bold text-slate-700">Año ${i+1}</td><td class="p-2.5 text-right font-medium">${formatCLP(x.rev)}</td><td class="p-2.5 text-right text-slate-500">${formatCLP(x.cv)}</td><td class="p-2.5 text-right">${formatCLP(x.mb)}</td><td class="p-2.5 text-right text-slate-500">${formatCLP(x.op)}</td><td class="p-2.5 text-right font-semibold ${x.fo<0?'text-rose-600':'text-emerald-600'}">${x.fo<0?'−':''}${formatCLP(Math.abs(x.fo))}</td><td class="p-2.5 text-right font-bold ${x.cum>=0?'text-blue-600':'text-slate-500'}">${x.cum<0?'−':''}${formatCLP(Math.abs(x.cum))}</td></tr>`).join('')+
+  `<tr class="bg-slate-50"><td class="p-2.5 text-slate-600" colspan="5">Recupero de stock y capital de trabajo (año 5)</td><td class="p-2.5 text-right font-semibold text-emerald-600">${formatCLP(p.rec)}</td><td class="p-2.5 text-right font-bold ${(r[4].cum+p.rec)>=0?'text-blue-600':'text-slate-500'}">${(r[4].cum+p.rec)<0?'−':''}${formatCLP(Math.abs(r[4].cum+p.rec))}</td></tr>`;
+  document.getElementById('kpi-capex').innerText=formatCLP(p.capex);
+  const ve=document.getElementById('kpi-van');ve.innerText=(van<0?'−':'')+formatCLP(Math.abs(van));ve.className='text-2xl font-bold mt-1 '+(van>=0?'text-emerald-600':'text-rose-600');
+  document.getElementById('kpi-tir').innerText=tir===null?'n/d':(tir*100).toFixed(1)+'%';
+  document.getElementById('kpi-payback').innerText=pb===null?'> 5 años':pb.toFixed(1)+' años';
+  renderCashflowChart(r.map(x=>x.rev),ops);
 }
 function renderAnalysis(){
-  const p=renderAnalisis_inputs();
-  document.getElementById('an-gm-v').textContent=(p.gm*100).toFixed(1).replace('.',',')+'%';
-  document.getElementById('an-opex-v').textContent='$'+fM(p.opex)+' M';
-  document.getElementById('an-rec-v').textContent='$'+fM(p.rec)+' M';
-  const fl=buFlows(p.v1,p.gm,p.opex,p.gr,p.rec);
-  const van=npvF(p.capex,fl,p.w), tir=irrF(p.capex,fl), be=p.opex*12/p.gm;
-  let lo=0,hi=2e9;for(let k=0;k<60;k++){const m=(lo+hi)/2;if(npvF(p.capex,buFlows(m,p.gm,p.opex,p.gr,p.rec),p.w)<0)lo=m;else hi=m;}
-  const need=hi;
-  let mkt=0;colegiosData.forEach(()=>{});
-  Object.keys(DEP_MAT).forEach(d=>{const c=colegiosData.filter(x=>x.dependencia===d);const avg=c.reduce((a,x)=>a+x.gastoAlumno,0)/c.length;mkt+=DEP_MAT[d]*avg*1.5;});
+  const p=getModel(),r=rows(p),ops=r.map(x=>x.fo),fl=buFlows(p.v1,p.gm,p.opex,p.gr,p.rec);
+  const van=npvF(p.capex,fl,p.w),tir=irrF(p.capex,fl),be=p.opex*12/p.gm,pb=paybackF(p.capex,ops);
+  let lo=0,hi=2e9;for(let k=0;k<60;k++){const m=(lo+hi)/2;if(npvF(p.capex,buFlows(m,p.gm,p.opex,p.gr,p.rec),p.w)<0)lo=m;else hi=m;}const need=hi;
+  let l2=0,h2=2;for(let k=0;k<60;k++){const m=(l2+h2)/2;if(npvF(p.capex,buFlows(p.v1,m,p.opex,p.gr,p.rec),p.w)<48.5e6)l2=m;else h2=m;}
+  let mkt=0;Object.keys(DEP_MAT).forEach(d=>{const c=colegiosData.filter(x=>x.dependencia===d);const avg=c.reduce((a,x)=>a+x.gastoAlumno,0)/c.length;mkt+=DEP_MAT[d]*avg*1.5;});
   document.getElementById('an-be').textContent='$'+fM(be)+' M';
   const vEl=document.getElementById('an-van');vEl.textContent=(van<0?'−':'')+'$'+fM(Math.abs(van))+' M';vEl.className='text-xl font-bold mt-1 '+(van>=0?'text-emerald-600':'text-rose-600');
-  document.getElementById('an-tir').textContent=tir===null?'n/d':(tir*100).toFixed(1).replace('.',',')+'%';
-  document.getElementById('an-share').textContent=(p.v1/mkt*100).toFixed(1).replace('.',',')+'%';
+  document.getElementById('an-tir').textContent=tir===null?'n/d':pct(tir);
+  document.getElementById('an-share').textContent=pct(p.v1/mkt);
   document.getElementById('an-mkt').textContent='Mercado estimado: $'+Math.round(mkt/1e6).toLocaleString('es-CL')+' M';
   const ve=document.getElementById('an-verdict');
-  if(van>=0){ve.className='rounded-xl p-4 text-sm font-semibold border bg-emerald-50 border-emerald-200 text-emerald-800';ve.textContent='✅ Viable con estos supuestos: VAN de $'+fM(van)+' M. Las ventas de equilibrio operativo son $'+fM(be)+' M.';}
-  else{ve.className='rounded-xl p-4 text-sm font-semibold border bg-amber-50 border-amber-200 text-amber-800';ve.textContent='⚠️ Con margen bruto menos OPEX el VAN es negativo ($'+fM(van)+' M). Para VAN cero se necesitan ventas del año 1 cercanas a $'+fM(need)+' M, o un OPEX menor.';}
-  const sim=[];for(let i=0;i<5;i++)sim.push(p.v1*Math.pow(1+p.gr,i)*p.mg);
+  if(van>=0){ve.className='rounded-xl p-4 text-sm font-semibold border bg-emerald-50 border-emerald-200 text-emerald-800';ve.textContent='✅ Viable con los supuestos del Simulador: VAN de $'+fM(van)+' M. Ventas de equilibrio operativo: $'+fM(be)+' M.';}
+  else{ve.className='rounded-xl p-4 text-sm font-semibold border bg-amber-50 border-amber-200 text-amber-800';ve.textContent='⚠️ Con margen bruto menos OPEX el VAN es negativo ($'+sg(van)+' M). Para VAN cero se necesitan ventas del año 1 cercanas a $'+fM(need)+' M, o un OPEX menor.';}
+  const cmp=[['VAN (12%)','$48,5 M','$'+sg(van)+' M'],['TIR','31,2%',tir===null?'n/d':pct(tir)],['Payback','2,2 años',pb===null?'> 5 años':pb.toFixed(1).replace('.',',')+' años'],['Ventas año 1','$135,0 M','$'+fM(p.v1)+' M'],['OPEX anual','$63,6 M','$'+fM(p.opex*12)+' M'],['Margen bruto','42% a 45%',pct(p.gm)]];
+  document.getElementById('an-cmp').innerHTML='<thead><tr class="bg-slate-100 text-slate-600 text-[10px] uppercase"><th class="p-2 text-left">Indicador</th><th class="p-2 text-right">Documento</th><th class="p-2 text-right">Modelo</th></tr></thead><tbody class="divide-y divide-slate-100">'+cmp.map(c=>'<tr><td class="p-2 text-left">'+c[0]+'</td><td class="p-2 text-right">'+c[1]+'</td><td class="p-2 text-right font-bold">'+c[2]+'</td></tr>').join('')+'</tbody>';
+  document.getElementById('an-calib').textContent='Con estos supuestos, el margen bruto que reproduce el VAN de $48,5 M es ~'+pct(h2)+(h2>=0.42&&h2<=0.45?', dentro del rango de 42% a 45% del documento.':', fuera del rango de 42% a 45% del documento.');
+  let acc=-p.capex;const cumL=ops.map((o,i)=>{acc+=o;return i===4?acc+p.rec:acc;});
   if(analisisChart)analisisChart.destroy();
-  analisisChart=new Chart(document.getElementById('chart-analisis').getContext('2d'),{type:'bar',data:{labels:['Año 1','Año 2','Año 3','Año 4','Año 5'],datasets:[{label:'Margen − OPEX (CLP)',data:fl,backgroundColor:fl.map(v=>v<0?'#ef4444':'#0ea5e9')},{type:'line',label:'Modelo documento (CLP)',data:sim,borderColor:'#f59e0b',backgroundColor:'#f59e0b',borderWidth:3,tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>'$'+(v/1e6).toFixed(0)+'M'}}}}});
+  analisisChart=new Chart(document.getElementById('chart-analisis').getContext('2d'),{type:'bar',data:{labels:['Año 1','Año 2','Año 3','Año 4','Año 5'],datasets:[{label:'Flujo operativo (CLP)',data:ops,backgroundColor:ops.map(v=>v<0?'#ef4444':'#0ea5e9')},{type:'line',label:'Acumulado menos CAPEX (CLP)',data:cumL,borderColor:'#f59e0b',backgroundColor:'#f59e0b',borderWidth:3,tension:.3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>'$'+(v/1e6).toFixed(0)+'M'}}}}});
   const gms=[0.40,0.435,0.47],vs=[110e6,135e6,150e6,165e6,185e6];
-  let h='<thead><tr class="bg-slate-100 text-slate-600"><th class="p-2 text-left">Ventas año 1</th>'+gms.map(x=>'<th class="p-2">MB '+(x*100).toFixed(1).replace('.',',')+'%</th>').join('')+'</tr></thead><tbody>';
-  vs.forEach(v=>{h+='<tr class="border-t border-slate-100"><td class="p-2 text-left font-semibold">$'+(v/1e6)+' M</td>'+gms.map(x=>{const n=npvF(p.capex,buFlows(v,x,p.opex,p.gr,p.rec),p.w);return '<td class="p-2 font-semibold '+(n>=0?'bg-emerald-100 text-emerald-800':'bg-rose-100 text-rose-800')+'">'+(n<0?'−':'')+fM(Math.abs(n))+'</td>';}).join('')+'</tr>';});
+  let h='<thead><tr class="bg-slate-100 text-slate-600"><th class="p-2 text-left">Ventas año 1</th>'+gms.map(x=>'<th class="p-2">MB '+pct(x)+'</th>').join('')+'</tr></thead><tbody>';
+  vs.forEach(v=>{h+='<tr class="border-t border-slate-100"><td class="p-2 text-left font-semibold">$'+(v/1e6)+' M</td>'+gms.map(x=>{const n=npvF(p.capex,buFlows(v,x,p.opex,p.gr,p.rec),p.w);return '<td class="p-2 font-semibold '+(n>=0?'bg-emerald-100 text-emerald-800':'bg-rose-100 text-rose-800')+'">'+sg(n)+'</td>';}).join('')+'</tr>';});
   document.getElementById('an-sens').innerHTML=h+'</tbody>';
+  const fr=[['Ventas',x=>x.rev],['Costo de ventas',x=>-x.cv],['Margen bruto',x=>x.mb],['OPEX anual',x=>-x.op],['Flujo operativo',x=>x.fo]];
+  const head='<thead><tr class="bg-slate-100 text-slate-600 text-[10px] uppercase"><th class="p-2 text-left">Concepto</th>'+[1,2,3,4,5].map(n=>'<th class="p-2">Año '+n+'</th>').join('')+'</tr></thead><tbody class="divide-y divide-slate-100">';
+  const line=(lab,fn,b)=>'<tr class="'+(b?'bg-slate-50 font-bold':'')+'"><td class="p-2 text-left">'+lab+'</td>'+[0,1,2,3,4].map(i=>{const v=fn(i);return '<td class="p-2 '+(v<0?'text-rose-600':'')+'">'+(v===0?'–':sg(v))+'</td>';}).join('')+'</tr>';
+  document.getElementById('an-flow').innerHTML=head+fr.map((f,k)=>line(f[0],i=>f[1](r[i]),k===4)).join('')+line('Recupero stock y capital',i=>i===4?p.rec:0,false)+line('Flujo para VAN y TIR',i=>fl[i],true)+'</tbody>';
 }
     </script>
 </body>
